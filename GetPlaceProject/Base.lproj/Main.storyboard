@@ -18,10 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eud-DQ-cWK">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Địa điểm" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yei-DJ-Bpj" customClass="Label" customModule="GetPlaceProject" customModuleProvider="target">
                                 <rect key="frame" x="8" y="617" width="359" height="50"/>
                                 <color key="backgroundColor" red="0.99215686270000003" green="0.92156862750000001" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -32,6 +28,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eud-DQ-cWK">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -48,12 +48,11 @@
                     <navigationItem key="navigationItem" id="ZDG-48-KtW">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="search" id="ONa-Q1-10m">
                             <connections>
-                                <action selector="searchWithAddress:" destination="BYZ-38-t0r" id="97v-g5-hyl"/>
+                                <action selector="searchWithSender:" destination="BYZ-38-t0r" id="gxP-9c-Eb5"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="googleMapsContainer" destination="eud-DQ-cWK" id="Cum-L1-9fN"/>
                         <outlet property="nameLabel" destination="yei-DJ-Bpj" id="kWJ-tI-cnE"/>
                         <outlet property="searchDisplayController" destination="rlh-SN-4Eh" id="BIJ-BC-J1E"/>
                     </connections>
@@ -63,6 +62,34 @@
                 <searchDisplayController id="rlh-SN-4Eh"/>
             </objects>
             <point key="canvasLocation" x="1056.8" y="117.39130434782609"/>
+        </scene>
+        <!--Places View Controller-->
+        <scene sceneID="ykm-nP-qJa">
+            <objects>
+                <tableViewController id="h6x-Tg-YNe" customClass="PlacesViewController" customModule="GetPlaceProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="UcN-aV-nj5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="3kh-yi-qH2">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3kh-yi-qH2" id="lrY-5w-pHP">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="h6x-Tg-YNe" id="H95-Nr-Ycu"/>
+                            <outlet property="delegate" destination="h6x-Tg-YNe" id="jiw-QU-rJf"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QZ3-7f-Tn9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1948" y="117"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pUS-nO-3Si">

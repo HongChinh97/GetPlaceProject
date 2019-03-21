@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		843E87E02240C80200F22764 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 843E87DF2240C80200F22764 /* Default-568h@2x.png */; };
 		843E87E22241060900F22764 /* SearchResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E87E12241060800F22764 /* SearchResultsController.swift */; };
+		8450116D2243374C00C35995 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450116C2243374C00C35995 /* PlacesViewController.swift */; };
 		84D5855422408370005F63FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D5855322408370005F63FA /* AppDelegate.swift */; };
 		84D5855622408370005F63FA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D5855522408370005F63FA /* ViewController.swift */; };
 		84D5855922408370005F63FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D5855722408370005F63FA /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		843E87DF2240C80200F22764 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		843E87E12241060800F22764 /* SearchResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsController.swift; sourceTree = "<group>"; };
+		8450116C2243374C00C35995 /* PlacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
 		84D5855022408370005F63FA /* GetPlaceProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetPlaceProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D5855322408370005F63FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84D5855522408370005F63FA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			children = (
 				84D5855322408370005F63FA /* AppDelegate.swift */,
 				84D5855522408370005F63FA /* ViewController.swift */,
+				8450116C2243374C00C35995 /* PlacesViewController.swift */,
 				843E87E12241060800F22764 /* SearchResultsController.swift */,
 				84D5855722408370005F63FA /* Main.storyboard */,
 				84D5855A22408373005F63FA /* Assets.xcassets */,
@@ -215,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8450116D2243374C00C35995 /* PlacesViewController.swift in Sources */,
 				84D5855622408370005F63FA /* ViewController.swift in Sources */,
 				843E87E22241060900F22764 /* SearchResultsController.swift in Sources */,
 				84D5855422408370005F63FA /* AppDelegate.swift in Sources */,
@@ -362,14 +366,18 @@
 			baseConfigurationReference = 9D7736DB1554293C1212A2E2 /* Pods-GetPlaceProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R5LAY7QG8C;
 				INFOPLIST_FILE = GetPlaceProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hongchinh.GetPlaceProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -380,14 +388,18 @@
 			baseConfigurationReference = 9F9A42189CD0AC29A0753A36 /* Pods-GetPlaceProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R5LAY7QG8C;
 				INFOPLIST_FILE = GetPlaceProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hongchinh.GetPlaceProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
