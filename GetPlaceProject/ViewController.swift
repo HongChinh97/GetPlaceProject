@@ -12,12 +12,19 @@ import GooglePlaces
 import GooglePlacePicker
 
 
-class ViewController: UIViewController, GMSMapViewDelegate, UISearchBarDelegate {
+class ViewController: UIViewController, GMSMapViewDelegate, UISearchBarDelegate, LocateOnTheMap {
+    
 
     
     @IBOutlet var googleMapView: GMSMapView!
     @IBOutlet weak var nameLabel: UILabel!
   
+//    var googleMapsView: GMSMapView!
+    var searchResultController: SearchResultsController!
+    var resultsArray = [String]()
+    var gmsFetcher: GMSAutocompleteFetcher!
+    
+    
     // An array to hold the list of likely places.
     var likelyPlaces: [GMSPlace] = []
     // The currently selected place.
@@ -35,7 +42,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, UISearchBarDelegate 
    // 21.054064, 105.734481
     override func viewDidLoad() {
         super.viewDidLoad()
-        let camera = GMSCameraPosition.camera(withLatitude: 21.054064, longitude: 105.734481, zoom: 6.0)
+        let camera = GMSCameraPosition.camera(withLatitude: 21.054064, longitude: 105.734481, zoom: 15.0)
         let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         view = mapView
         
@@ -53,8 +60,14 @@ class ViewController: UIViewController, GMSMapViewDelegate, UISearchBarDelegate 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-
-
+            
+//        self.view.addSubview(self.googleMapView)
+        
+            searchResultController = SearchResultsController()
+            searchResultController.delegate = self
+            gmsFetcher = GMSAutocompleteFetcher()
+            gmsFetcher.delegate = self
+        
 
     }
 
@@ -63,10 +76,10 @@ class ViewController: UIViewController, GMSMapViewDelegate, UISearchBarDelegate 
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    
     func mapView(_ mapView: GMSMapView, didTapPOIWithPlaceID placeID: String, name: String, location: CLLocationCoordinate2D) {
-
-        let picker = "\(name)"
-        nameLabel.text = picker
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
         mapView.animate(to: camera)
         infoMarker.position = location
@@ -75,7 +88,14 @@ class ViewController: UIViewController, GMSMapViewDelegate, UISearchBarDelegate 
         infoMarker.infoWindowAnchor.y = 1
         infoMarker.map = mapView
         mapView.selectedMarker = infoMarker
-       
+        
+//        infoMarker.snippet  = placeID
+//        infoMarker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+//        infoMarker.icon = GMSMarker.markerImage(with: #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1))
+//        infoMarker.isFlat = true
+        
+        let picker = "\(name)"
+        nameLabel.text = picker
     }
     
     @IBAction func search(sender: Any) {
@@ -94,6 +114,14 @@ class ViewController: UIViewController, GMSMapViewDelegate, UISearchBarDelegate 
         
         // Display the autocomplete view controller.
         present(autocompleteController, animated: true, completion: nil)
+        
+        
+        // searchBar
+        let searchController = UISearchController(searchResultsController: searchResultController)
+        
+        searchController.searchBar.delegate = self
+        
+        self.present(searchController, animated:true, completion: nil)
     }
     
 
@@ -174,5 +202,69 @@ extension ViewController: CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
         print("Error: \(error)")
     }
+}
+
+extension ViewController: GMSAutocompleteFetcherDelegate{
+    /**
+     * Called when an autocomplete request returns an error.
+     * @param error the error that was received.
+     */
+    public func didFailAutocompleteWithError(_ error: Error) {
+        //        resultText?.text = error.localizedDescription
+    }
+    
+    /**
+     * Called when autocomplete predictions are available.
+     * @param predictions an array of GMSAutocompletePrediction objects.
+     */
+    public func didAutocomplete(with predictions: [GMSAutocompletePrediction]) {
+        //self.resultsArray.count + 1
+        
+        for prediction in predictions {
+            
+            if let prediction = prediction as GMSAutocompletePrediction?{
+                self.resultsArray.append(prediction.attributedFullText.string)
+            }
+        }
+        self.searchResultController.reloadDataWithArray(self.resultsArray)
+        //   self.searchResultsTable.reloadDataWithArray(self.resultsArray)
+        print(resultsArray)
+    }
+    
+    func locateWithLongitude(_ lon: Double, andLatitude lat: Double, andTitle title: String) {
+        DispatchQueue.main.async { () -> Void in
+            let position = CLLocationCoordinate2DMake(lat, lon)
+            let marker = GMSMarker(position: position)
+            let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: 10)
+            self.googleMapView.camera = camera
+            marker.title = "Address : \(title)"
+            marker.map = self.googleMapView
+            
+        }
+    }
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let placeClient = GMSPlacesClient()
+        placeClient.autocompleteQuery(searchText, bounds: nil, filter: nil)  {(results, error: Error?) -> Void in
+            // NSError myerr = Error;
+            print("Error @%",Error.self)
+            self.resultsArray.removeAll()
+            if results == nil {
+                return
+            }
+            for result in results! {
+                if let result = result as? GMSAutocompletePrediction {
+                    self.resultsArray.append(result.attributedFullText.string)
+                }
+            }
+            self.searchResultController.reloadDataWithArray(self.resultsArray)
+        }
+        
+        //        self.resultsArray.removeAll()
+        //        gmsFetcher?.sourceTextHasChanged(searchText)
+        
+    }
+    
 }
 
