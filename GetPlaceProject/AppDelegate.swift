@@ -15,11 +15,11 @@ import GooglePlacePicker
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var key: String = "AIzaSyCY-m1uyZ2q9idL5HAQNJ5YyI72cH1n_lU"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        GMSPlacesClient.provideAPIKey("AIzaSyA03rIRsa0m09cRQcjK55OVrcLyToNG8e8")
-        GMSServices.provideAPIKey("AIzaSyA03rIRsa0m09cRQcjK55OVrcLyToNG8e8")
+        GMSPlacesClient.provideAPIKey(key)
+        GMSServices.provideAPIKey(key)
        
 
         return true
